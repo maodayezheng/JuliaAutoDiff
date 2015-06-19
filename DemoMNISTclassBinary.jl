@@ -79,7 +79,7 @@
     # instantiate parameter nodes and inputs:
     value=Array(Any,c) # function values on the nodes
     value[xinput]=data[:,1:BatchSize];
-    value[class]=(classtraindata[1:BatchSize])'
+    value[class]=classtraindata[:,1:BatchSize]
     for i=2:L
         value[w[i]]=sign(randn(H[i],H[i-1]))/sqrt(H[i-1])
     end
