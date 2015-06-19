@@ -1,7 +1,7 @@
 #function DemoMNISTclass()
     # Training a deep classifier on MNIST
     # The method uses Nesterov's accelerated gradient, with minibatches
-    # David Barber, University College London 2015
+    # (c) David Barber, University College London 2015
 
     # If running from repl within julia, need to first run:
     # using dbAutoDiff, Winston

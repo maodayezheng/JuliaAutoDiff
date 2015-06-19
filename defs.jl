@@ -1,3 +1,4 @@
+# (c) David Barber, University College London 2015    
 #= How this works:
 
 GENERAL AUTODIFF THEORY:
@@ -124,14 +125,6 @@ Dsum[1]=dsum1(x,self,aux,t)=t
 Derivative[Fsum]=Dsum # Define dictionary lookup
 export Fsum
 export dsum1 # need for source code execution
-
-#Fsums(x...)=(sum(x),[])
-#Dsums=Array(Function,1)
-#Dsums[1]=dsums1(x,self,aux,t)=t
-#Derivative[Fsums]=Dsums # Define dictionary lookup
-#export Fsums
-#export dsums1 # need for source code execution
-
 
 Flog(x)=(log(x),[])
 Dlog=Array(Function,1)

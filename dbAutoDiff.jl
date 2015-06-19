@@ -1,4 +1,5 @@
 module dbAutoDiff
+# (c) David Barber, University College London 2015    
 
 using NumericExtensions, MAT, Cartesian, HDF5, JLD #, ArrayViews
 

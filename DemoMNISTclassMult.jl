@@ -1,7 +1,7 @@
-#function DemoMNISTclass()
-    # Training a deep classifier on MNIST
+#function DemoMNISTclassMult()
+    # Training a deep multinomial classifier on MNIST
     # The method uses Nesterov's accelerated gradient, with minibatches
-    # David Barber, University College London 2015
+    # (c) David Barber, University College London 2015
 
     # If running from repl within julia, need to first run:
     # using dbAutoDiff, Winston
@@ -54,7 +54,7 @@
         value[w[i]]=sign(randn(H[i],H[i-1]))/sqrt(H[i-1])
     end
 
-    (value,auxvalue,gradient,net)=compile(value,node); # compile the DAG and preallocate memory
+    (value,auxvalue,gradient,net)=compile(value,node) # compile the DAG and preallocate memory
 
     #gradcheck(value,net,true) # use a small number of datapoints and small network to check the gradient, otherwise this will be very slow
 

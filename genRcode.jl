@@ -1,5 +1,6 @@
 function genRcode(v,av,g,n::Array{ADnode,1},mess,fname=[])
 # generate source code for reverse Autodiff pass
+# (c) David Barber, University College London 2015    
    if isempty(fname)
        iostream=STDOUT
        str="function ("

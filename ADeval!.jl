@@ -6,6 +6,7 @@ function ADeval!(value,net;auxvalue=[],gradient=[],returnall=true,exclude=[],doF
     http://numericextensionsjl.readthedocs.org/en/latest/functors.html
     Unfortunately I've not been able to fix this whilst retaining fairly general code. This may need to wait until a future version of Julia that deals with shared memory more efficiently.
  =#
+# (c) David Barber, University College London 2015    
     node=net.node
     mess=net.message
     N=length(node)

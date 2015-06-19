@@ -1,7 +1,7 @@
 function DemoTiedNet()
     # Simple net to show how to compute the gradient and function value
     # Compares speed of calculating the gradient using ADeval! versus source code generation
-    # David Barber, University College London 2015
+    # (c) David Barber, University College London 2015
 
     # To run from the Julia repl, need:
     # using dbAutoDiff

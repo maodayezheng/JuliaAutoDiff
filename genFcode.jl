@@ -1,5 +1,6 @@
 function genFcode(v,av,n::Array{ADnode,1},fname=[])
 # generate source code for the Autodiff forward pass
+# (c) David Barber, University College London 2015    
    if isempty(fname)
        iostream=STDOUT
        str="function ("

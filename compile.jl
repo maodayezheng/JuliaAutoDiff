@@ -1,5 +1,7 @@
 function compile(value,node::Array{ADnode,1})
 
+    # (c) David Barber, University College London 2015
+    
     println("Compiling into a tree and storing messages:")
     N=length(node)
 

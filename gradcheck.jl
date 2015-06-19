@@ -1,4 +1,5 @@
 function gradcheck(value,net,showgrad=false)
+# (c) David Barber, University College London 2015    
     # requires Cartesian package
     println("gradcheck...")
     v=deepcopy(value) # so we don't modify the calling argument
