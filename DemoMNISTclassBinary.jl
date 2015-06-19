@@ -27,7 +27,7 @@
             classdata[i]=1
         end
     end
-    classtraindata=(classdata[1:Ntrain])'
+    classtraindata=classdata[:,1:Ntrain]
     classtestdata=(classdata[Ntrain+1:Ntrain+Ntest])'
 
     # Construct the DAG function:
@@ -109,7 +109,7 @@
             minibatchstart=1
         end
         value[xinput]=data[:,minibatch] # select batch
-        value[class]=(classtraindata[minibatch])'
+        value[class]=classtraindata[:,minibatch]
 
         # Nesterov Accelerated Gradient update:
         mu=1-3/(t+5);
