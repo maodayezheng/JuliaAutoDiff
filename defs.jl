@@ -203,6 +203,7 @@ Derivative[Ftanh]=Dtanh
 export Ftanh
 export Dtanh1 # need for source code execution
 
+# rectified linear
 Frectlin(x::Array{Float64,2})=(max(x,0),[]);
 Drectlin=Array(Function,1)
 Drectlin[1]=Drectlin1(x::Array{Float64,2},self,aux,t::Array{Float64,2})=t.*(x.>0)
