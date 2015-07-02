@@ -1,4 +1,4 @@
-# (c) David Barber, University College London 2015    
+# (c) David Barber, University College London 2015
 #= How this works:
 
 GENERAL AUTODIFF THEORY:
@@ -169,7 +169,7 @@ export DAx1, DAx2 # need for source code execution
 Fxpy(x,y)=(x.+y,[])
 Dxpy=Array(Function,2)
 Dxpy[1]=Dxpy1(x,y,s,a,t)=t.*ones(size(x))
-Dxpy[2]=Dxpy2(x,y,s,a,t)=t.*ones(size(y))
+Dxpy[2]=Dxpy2(xFsh,y,s,a,t)=t.*ones(size(y))
 Dxpy[1]=Dxpy1(x::Float64,y::Float64,s,a,t)=t
 Dxpy[2]=Dxpy2(x::Float64,y::Float64,s,a,t)=t
 Derivative[Fxpy]=Dxpy
@@ -203,6 +203,14 @@ Derivative[Ftanh]=Dtanh
 export Ftanh
 export Dtanh1 # need for source code execution
 
+Frectlin(x::Array{Float64,2})=(max(x,0),[]);
+Drectlin=Array(Function,1)
+    Drectlin[1]=Drectlin1(x::Array{Float64,2},self,aux,t::Array{Float64,2})=t.*(x.>0)
+Derivative[Frectlin]=Drectlin
+export Frectlin
+export Drectlin1 # need for source code execution
+
+
 # Neural Net layer
 FsigmaAx(A::Array{Float64,2},x::Array{Float64,2})=(sigma(A*x),[])
 DsigmaAx=Array(Function,2)
@@ -225,6 +233,32 @@ DshiftedsigmaAx[2]=DshiftedsigmaAx2(A,x,self,aux,t)=A'*(t.*aux)
 Derivative[FshiftedsigmaAx]=DshiftedsigmaAx
 export FshiftedsigmaAx
 export DshiftedsigmaAx1, DshiftedsigmaAx2 # need for source code execution
+
+
+FtanhAxo2(A,x)=begin a=sigma(A*x); return (2*a-1.,2.*a.*(1.-a)); end
+DtanhAxo2=Array(Function,2)
+DtanhAxo2[1]=DtanhAxo21(A,x,self,aux,t)=(t.*aux)*x'
+DtanhAxo2[2]=DtanhAxo22(A,x,self,aux,t)=A'*(t.*aux)
+Derivative[FtanhAxo2]=DtanhAxo2
+export FtanhAxo2
+export DtanhAxo21, DtanhAxo22 # need for source code execution
+
+FrectlinAx(A::Array{Float64,2},x::Array{Float64,2})=begin a=A*x; return (max(a,0.),(a.>0));end
+DrectlinAx=Array(Function,2)
+DrectlinAx[1]=DrectlinAx1(A::Array{Float64,2},x::Array{Float64,2},self,aux,t::Array{Float64,2})=(t.*aux)*x'
+DrectlinAx[2]=DrectlinAx2(A::Array{Float64,2},x::Array{Float64,2},self,aux,t::Array{Float64,2})=A'*(t.*aux)
+Derivative[FrectlinAx]=DrectlinAx
+export FrectlinAx
+export DrectlinAx1, DrectlinAx2 # need for source code execution
+
+FsrectlinAx(A::Array{Float64,2},x::Array{Float64,2})=begin a=1.414*A*x; return (max(a,0.),(a.>0));end
+DsrectlinAx=Array(Function,2)
+DsrectlinAx[1]=DsrectlinAx1(A::Array{Float64,2},x::Array{Float64,2},self,aux,t::Array{Float64,2})=(t.*aux)*x'
+DsrectlinAx[2]=DsrectlinAx2(A::Array{Float64,2},x::Array{Float64,2},self,aux,t::Array{Float64,2})=A'*(t.*aux)
+Derivative[FsrectlinAx]=DsrectlinAx
+export FsrectlinAx
+export DsrectlinAx1, DsrectlinAx2 # need for source code execution
+
 
 # This is an alternative sigmoid 2.5*A*x/(1+abs(A*x)):
 FssigmaAx(A::Array{Float64,2},x::Array{Float64,2})=begin a=A*x; return (2.5*a./(1.+abs(a)),2.5./(1.+abs(a)).^2); end
