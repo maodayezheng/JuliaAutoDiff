@@ -169,7 +169,7 @@ export DAx1, DAx2 # need for source code execution
 Fxpy(x,y)=(x.+y,[])
 Dxpy=Array(Function,2)
 Dxpy[1]=Dxpy1(x,y,s,a,t)=t.*ones(size(x))
-Dxpy[2]=Dxpy2(xFsh,y,s,a,t)=t.*ones(size(y))
+Dxpy[2]=Dxpy2(x,y,s,a,t)=t.*ones(size(y))
 Dxpy[1]=Dxpy1(x::Float64,y::Float64,s,a,t)=t
 Dxpy[2]=Dxpy2(x::Float64,y::Float64,s,a,t)=t
 Derivative[Fxpy]=Dxpy
@@ -205,7 +205,7 @@ export Dtanh1 # need for source code execution
 
 Frectlin(x::Array{Float64,2})=(max(x,0),[]);
 Drectlin=Array(Function,1)
-    Drectlin[1]=Drectlin1(x::Array{Float64,2},self,aux,t::Array{Float64,2})=t.*(x.>0)
+Drectlin[1]=Drectlin1(x::Array{Float64,2},self,aux,t::Array{Float64,2})=t.*(x.>0)
 Derivative[Frectlin]=Drectlin
 export Frectlin
 export Drectlin1 # need for source code execution
@@ -243,6 +243,7 @@ Derivative[FtanhAxo2]=DtanhAxo2
 export FtanhAxo2
 export DtanhAxo21, DtanhAxo22 # need for source code execution
 
+# rectifiedlinear(A*x)
 FrectlinAx(A::Array{Float64,2},x::Array{Float64,2})=begin a=A*x; return (max(a,0.),(a.>0));end
 DrectlinAx=Array(Function,2)
 DrectlinAx[1]=DrectlinAx1(A::Array{Float64,2},x::Array{Float64,2},self,aux,t::Array{Float64,2})=(t.*aux)*x'
@@ -251,6 +252,7 @@ Derivative[FrectlinAx]=DrectlinAx
 export FrectlinAx
 export DrectlinAx1, DrectlinAx2 # need for source code execution
 
+# sqrt(2)*rectifiedlinear(A*x) (scaled version)
 FsrectlinAx(A::Array{Float64,2},x::Array{Float64,2})=begin a=1.414*A*x; return (max(a,0.),(a.>0));end
 DsrectlinAx=Array(Function,2)
 DsrectlinAx[1]=DsrectlinAx1(A::Array{Float64,2},x::Array{Float64,2},self,aux,t::Array{Float64,2})=(t.*aux)*x'
