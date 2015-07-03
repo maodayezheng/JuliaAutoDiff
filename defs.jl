@@ -235,6 +235,12 @@ Derivative[FshiftedsigmaAx]=DshiftedsigmaAx
 export FshiftedsigmaAx
 export DshiftedsigmaAx1, DshiftedsigmaAx2 # need for source code execution
 
+FbTanhAx(A::Array{Float64,2},x::Array{Float64,2})=begin a=tanh(0.6666*A*x); return (1.7159*a,1.7159*0.6666*(1.-a.*a)); end
+DbTanhAx=Array(Function,2)
+DbTanhAx[1]=DbTanhAx1(A::Array{Float64,2},x::Array{Float64,2},self,aux,t::Array{Float64,2})=(t.*aux)*x'
+DbTanhAx[2]=DbTanhAx2(A::Array{Float64,2},x::Array{Float64,2},self,aux,t::Array{Float64,2})=A'*(t.*aux)
+Derivative[FbTanhAx]=DbTanhAx
+export FbTanhAx, DbTanhAx1, DbTanhAx2
 
 FtanhAxo2(A,x)=begin a=sigma(A*x); return (2*a-1.,2.*a.*(1.-a)); end
 DtanhAxo2=Array(Function,2)
